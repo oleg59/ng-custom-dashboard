@@ -1,1 +1,5 @@
-ng-custom-dashboard
+<gridster [options]="(options$ | async) ?? {}">
+  <gridster-item [item]="item" *ngFor="let item of dashboard$ | async">
+    {{ item.x }}, {{ item.y }}
+  </gridster-item>
+</gridster>

@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { NgCustomDashboardComponent } from 'ng-custom-dashboard';
+import { NgCustomDashboardModule } from 'ng-custom-dashboard';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -10,7 +12,8 @@ import { NgCustomDashboardComponent } from 'ng-custom-dashboard';
   ],
   imports: [
     BrowserModule,
-    NgCustomDashboardComponent
+    NgCustomDashboardModule,
+    StoreDevtoolsModule.instrument()
   ],
   providers: [],
   bootstrap: [AppComponent]
