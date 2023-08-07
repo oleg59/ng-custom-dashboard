@@ -1,5 +1,5 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
-import { DisplayGrid, GridType, GridsterConfig, GridsterItem } from 'angular-gridster2';
+import { createFeature, createReducer } from '@ngrx/store';
+import { DisplayGrid, GridType, GridsterConfig } from 'angular-gridster2';
 
 export interface ConfigState {
   gridsterConfig: Readonly<GridsterConfig>;
@@ -7,31 +7,24 @@ export interface ConfigState {
 
 const initialState: ConfigState = {
   gridsterConfig: {
-    gridType: GridType.VerticalFixed,
+    gridType: GridType.Fixed,
     minCols: 22,
     maxCols: 100,
-    fixedRowHeight: 60,
-    displayGrid: DisplayGrid.Always,
+    fixedRowHeight: 55,
+    fixedColWidth: 55,
+    displayGrid: DisplayGrid.OnDragAndResize,
     draggable: {
       enabled: true,
     },
     resizable: {
       enabled: true,
     },
-  }
+  },
 };
 
 export const configReducer = createFeature({
   name: 'config',
-  reducer: createReducer(
-    initialState,
-  ),
+  reducer: createReducer(initialState),
 });
 
-export const {
-  name,
-  reducer,
-  selectConfigState,
-  selectGridsterConfig
-} = configReducer;
-
+export const { name, reducer, selectConfigState, selectGridsterConfig } = configReducer;

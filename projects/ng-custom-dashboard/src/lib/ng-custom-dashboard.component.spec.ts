@@ -8,7 +8,7 @@ describe('NgCustomDashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NgCustomDashboardComponent]
+      imports: [NgCustomDashboardComponent],
     });
     fixture = TestBed.createComponent(NgCustomDashboardComponent);
     component = fixture.componentInstance;

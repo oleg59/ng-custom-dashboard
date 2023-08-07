@@ -3,4 +3,4 @@
  */
 
 export * from './lib/ng-custom-dashboard.component';
-export * from  './lib/ng-custom-dashboard.module';
+export * from './lib/ng-custom-dashboard.module';

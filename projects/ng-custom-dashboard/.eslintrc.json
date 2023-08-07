@@ -1,0 +1,20 @@
+{
+  "rules": {
+    "@angular-eslint/directive-selector": [
+      "error",
+      {
+        "prefix": ["ng-custom-dashboard", "ngcd"],
+        "style": "camelCase",
+        "type": "attribute"
+      }
+    ],
+    "@angular-eslint/component-selector": [
+      "error",
+      {
+        "type": "element",
+        "prefix": ["ng-custom-dashboard", "ngcd"],
+        "style": "kebab-case"
+      }
+    ]
+  }
+}

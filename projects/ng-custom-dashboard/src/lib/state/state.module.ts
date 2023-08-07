@@ -6,13 +6,7 @@ import { configReducer } from './config/config.reducer';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    StoreModule.forFeature(dashboardReducer),
-    StoreModule.forFeature(configReducer),
-  ],
-  exports: [
-    StoreModule
-  ]
+  imports: [CommonModule, StoreModule.forFeature(dashboardReducer), StoreModule.forFeature(configReducer)],
+  exports: [StoreModule],
 })
-export class StateModule { }
+export class StateModule {}

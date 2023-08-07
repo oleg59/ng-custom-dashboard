@@ -1,14 +1,14 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
-import { GridsterItem } from 'angular-gridster2';
+import { createFeature, createReducer } from '@ngrx/store';
+import { DashboardItem } from '../../common/models/dashboard.model';
 
 export interface DashboardState {
-  dashboard: ReadonlyArray<GridsterItem>;
+  dashboard: ReadonlyArray<DashboardItem>;
 }
 
 const initialState: DashboardState = {
   dashboard: [
-    { cols: 2, rows: 1, y: 0, x: 0 },
-    { cols: 2, rows: 3, y: 0, x: 2 },
+    { cols: 2, rows: 1, y: 0, x: 0, widget: { code: 'time' } },
+    { cols: 2, rows: 1, y: 0, x: 2, widget: { code: 'date' } },
   ],
 };
 
@@ -17,5 +17,4 @@ export const dashboardReducer = createFeature({
   reducer: createReducer(initialState),
 });
 
-export const { name, reducer, selectDashboardState, selectDashboard } =
-  dashboardReducer;
+export const { name, reducer, selectDashboardState, selectDashboard } = dashboardReducer;
