@@ -1,0 +1,35 @@
+@import 'vars.scss';
+@import 'fonts.scss';
+
+// Buttons
+.btn {
+  background-color: var(--ngcd-bg-color);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 18px;
+  color: var(--ngcd-font-color);
+  border: 0;
+  cursor: pointer;
+  transition: 0.27s;
+
+  &:hover {
+    background: var(--ngcd-accent-color);
+  }
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ngcd-bg-color); 
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ngcd-second-bg-color); 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ngcd-accent-color);
+}

@@ -14,10 +14,10 @@ const initialState: ConfigState = {
     fixedColWidth: 55,
     displayGrid: DisplayGrid.OnDragAndResize,
     draggable: {
-      enabled: true,
+      enabled: false,
     },
     resizable: {
-      enabled: true,
+      enabled: false,
     },
   },
 };

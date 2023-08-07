@@ -129,5 +129,12 @@
   },
   "cli": {
     "schematicCollections": ["@angular-eslint/schematics"]
+  },
+  "schematics": {
+    "@schematics/angular": {
+      "component": {
+        "changeDetection": "OnPush"
+      }
+    }
   }
 }

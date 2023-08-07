@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, Type, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { WidgetsService } from '../../common/services/widgets.service';
 import { DashboardWidget } from '../../common/models/dashboard.model';
 import { WidgetType } from '../../common/types/widget.type';
@@ -7,6 +7,7 @@ import { WidgetType } from '../../common/types/widget.type';
   selector: 'ngcd-widget',
   templateUrl: './widget.component.html',
   styleUrls: ['./widget.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WidgetComponent implements AfterViewInit {
   @Input() widget: DashboardWidget | undefined;
@@ -14,7 +15,10 @@ export class WidgetComponent implements AfterViewInit {
 
   @ViewChild('componentPlaceholder', { read: ViewContainerRef }) componentPlaceholder!: ViewContainerRef;
 
-  constructor(private widgets: WidgetsService) {}
+  constructor(
+    private widgets: WidgetsService,
+    private cd: ChangeDetectorRef,
+  ) {}
 
   ngAfterViewInit(): void {
     if (this.widget?.code) {
@@ -32,5 +36,7 @@ export class WidgetComponent implements AfterViewInit {
 
     const componentRef = viewContainerRef.createComponent(component);
     componentRef.instance.props = props;
+
+    this.cd.markForCheck();
   }
 }
