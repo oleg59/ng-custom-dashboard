@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { WidgetsService } from '../../common/services/widgets.service';
 import { Widget } from '../../common/models/widget.model';
+import { DashboardActions } from '../../state/dashboard/dashboard.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'ngcd-widgets',
@@ -11,9 +13,16 @@ import { Widget } from '../../common/models/widget.model';
 export class WidgetsComponent implements OnInit {
   widgets: Widget[] | undefined;
 
-  constructor(private widgetsService: WidgetsService) {}
+  constructor(
+    private widgetsService: WidgetsService,
+    private readonly store: Store,
+  ) {}
 
   ngOnInit(): void {
     this.widgets = this.widgetsService.getWidgets();
+  }
+
+  addWidget(widget: Widget) {
+    this.store.dispatch(DashboardActions.addWidget({ widget }));
   }
 }
