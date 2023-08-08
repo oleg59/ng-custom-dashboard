@@ -1,5 +1,7 @@
 # NgCustomDashboard
 
+[Demo link](https://oleg59.github.io/ng-custom-dashboard/)
+
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
 
 ## Code scaffolding
