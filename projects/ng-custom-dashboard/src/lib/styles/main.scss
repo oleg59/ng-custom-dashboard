@@ -1,5 +1,4 @@
 @import 'vars.scss';
-@import 'fonts.scss';
 
 // Buttons
 .btn {
@@ -12,8 +11,12 @@
   cursor: pointer;
   transition: 0.27s;
 
-  &:hover {
+  &:hover, &.btn_active {
     background: var(--ngcd-accent-color);
+  }
+  
+  &.btn_danger:hover, &.btn_active {
+    background-color: var(--ngcd-danger-color);
   }
 }
 

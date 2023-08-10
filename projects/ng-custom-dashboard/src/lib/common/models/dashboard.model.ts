@@ -4,5 +4,10 @@ import { Widget } from './widget.model';
 export type DashboardWidget = Pick<Widget, 'code' | 'props'>;
 
 export interface DashboardItem extends GridsterItem {
+  id: number;
   widget: DashboardWidget;
+}
+
+export enum DashboardMod {
+  Removal = 'removal',
 }

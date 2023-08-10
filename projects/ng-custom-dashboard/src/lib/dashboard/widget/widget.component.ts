@@ -1,7 +1,10 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { WidgetsService } from '../../common/services/widgets.service';
-import { DashboardWidget } from '../../common/models/dashboard.model';
+import { DashboardItem, DashboardWidget } from '../../common/models/dashboard.model';
 import { WidgetType } from '../../common/types/widget.type';
+import { Store } from '@ngrx/store';
+import { selectIsRemovalMod } from '../../state/dashboard/dashboard.selectors';
+import { DashboardActions } from '../../state/dashboard/dashboard.actions';
 
 @Component({
   selector: 'ngcd-widget',
@@ -10,19 +13,20 @@ import { WidgetType } from '../../common/types/widget.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WidgetComponent implements AfterViewInit {
-  @Input() widget: DashboardWidget | undefined;
-  @Input() index: number | undefined;
+  @Input({ required: true }) dashboardItem!: DashboardItem;
+  isRemovalMod$ = this.store.select(selectIsRemovalMod);
 
   @ViewChild('componentPlaceholder', { read: ViewContainerRef }) componentPlaceholder!: ViewContainerRef;
 
   constructor(
     private widgets: WidgetsService,
     private cd: ChangeDetectorRef,
+    private readonly store: Store,
   ) {}
 
   ngAfterViewInit(): void {
-    if (this.widget?.code) {
-      const widget = this.widgets.getWidgetByCode(this.widget.code);
+    if (this.dashboardItem.widget.code) {
+      const widget = this.widgets.getWidgetByCode(this.dashboardItem.widget.code);
 
       if (widget) {
         this.loadComponent(widget.component, widget.props);
@@ -38,5 +42,9 @@ export class WidgetComponent implements AfterViewInit {
     componentRef.instance.props = props;
 
     this.cd.markForCheck();
+  }
+
+  removeWidget(id: DashboardItem['id']) {
+    this.store.dispatch(DashboardActions.removeWidget({ id }));
   }
 }

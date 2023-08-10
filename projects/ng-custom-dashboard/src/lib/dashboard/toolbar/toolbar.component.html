@@ -1,5 +1,8 @@
 <div class="toolbar">
   <button class="btn" (click)="toglleWidgets()">{{ isOpenWidgets ? 'Close' : 'Add widget' }}</button>
+  <button class="btn btn_danger" [class.btn_active]="isRemovalMod$ | async" (click)="toggleRemovalState()">
+    <i class="fa-solid fa-trash-can"></i>
+  </button>
 </div>
 
 <ngcd-widgets *ngIf="isOpenWidgets"></ngcd-widgets>
