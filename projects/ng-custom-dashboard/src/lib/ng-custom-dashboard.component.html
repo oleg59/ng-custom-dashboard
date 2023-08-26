@@ -1,5 +1,5 @@
 <div class="ng-custom-dashboard">
-  <gridster class="ng-custom-dashboard__gridster" [options]="(options$ | async) ?? {}">
+  <gridster class="ng-custom-dashboard__gridster" [options]="options">
     <gridster-item class="gridster-item" [item]="item" *ngFor="let item of dashboard$ | async">
       <ngcd-widget [dashboardItem]="item"></ngcd-widget>
     </gridster-item>

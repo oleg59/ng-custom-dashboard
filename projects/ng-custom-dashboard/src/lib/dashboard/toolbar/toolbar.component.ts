@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { DashboardActions } from '../../state/dashboard/dashboard.actions';
-import { DashboardMod } from '../../common/models/dashboard.model';
-import { selectIsRemovalMod } from '../../state/dashboard/dashboard.selectors';
+import { DashboardState } from '../../common/models/dashboard.model';
+import { DashboardStateService } from '../../common/services/dashboard-state.service';
 
 @Component({
   selector: 'ngcd-toolbar',
@@ -12,15 +10,15 @@ import { selectIsRemovalMod } from '../../state/dashboard/dashboard.selectors';
 })
 export class ToolbarComponent {
   isOpenWidgets = false;
-  isRemovalMod$ = this.store.select(selectIsRemovalMod);
+  isRemovalState$ = this.dashboardStateService.isRemovalState$;
 
-  constructor(private readonly store: Store) {}
+  constructor(private readonly dashboardStateService: DashboardStateService) {}
 
   toglleWidgets() {
     this.isOpenWidgets = !this.isOpenWidgets;
   }
 
   toggleRemovalState() {
-    this.store.dispatch(DashboardActions.toggleDashboardMod({ dashboardMod: DashboardMod.Removal }));
+    this.dashboardStateService.toggleState(DashboardState.Removal);
   }
 }

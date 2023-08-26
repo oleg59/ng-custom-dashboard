@@ -1,11 +1,8 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { GridsterConfig } from 'angular-gridster2';
-import { selectDashboard } from './state/dashboard/dashboard.reducer';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { selectGridsterConfig } from './state/config/config.reducer';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DisplayGrid, GridType, GridsterConfig } from 'angular-gridster2';
+import { Observable } from 'rxjs';
 import { DashboardItem } from './common/models/dashboard.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DashboardService } from './common/services/dashboard.service';
 
 @Component({
   selector: 'ng-custom-dashboard',
@@ -13,19 +10,22 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./ng-custom-dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgCustomDashboardComponent implements OnInit {
-  options$: Observable<GridsterConfig> = this.store.select(selectGridsterConfig);
-  dashboard$ = new BehaviorSubject<DashboardItem[] | null>(null);
-  destroyRef = inject(DestroyRef);
+export class NgCustomDashboardComponent {
+  options: GridsterConfig = {
+    gridType: GridType.Fixed,
+    minCols: 22,
+    maxCols: 100,
+    fixedRowHeight: 55,
+    fixedColWidth: 55,
+    displayGrid: DisplayGrid.OnDragAndResize,
+    draggable: {
+      enabled: false,
+    },
+    resizable: {
+      enabled: false,
+    },
+  };
+  dashboard$: Observable<DashboardItem[]> | undefined = this.dashboardService.getDashboard();
 
-  constructor(private store: Store) {}
-
-  ngOnInit(): void {
-    this.store
-      .select(selectDashboard)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((v) => {
-        this.dashboard$.next(JSON.parse(JSON.stringify(v)) as DashboardItem[]);
-      });
-  }
+  constructor(private dashboardService: DashboardService) {}
 }

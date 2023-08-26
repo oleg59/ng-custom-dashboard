@@ -2,9 +2,8 @@ import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, I
 import { WidgetsService } from '../../common/services/widgets.service';
 import { DashboardItem, DashboardWidget } from '../../common/models/dashboard.model';
 import { WidgetType } from '../../common/types/widget.type';
-import { Store } from '@ngrx/store';
-import { selectIsRemovalMod } from '../../state/dashboard/dashboard.selectors';
-import { DashboardActions } from '../../state/dashboard/dashboard.actions';
+import { DashboardService } from '../../common/services/dashboard.service';
+import { DashboardStateService } from '../../common/services/dashboard-state.service';
 
 @Component({
   selector: 'ngcd-widget',
@@ -14,14 +13,15 @@ import { DashboardActions } from '../../state/dashboard/dashboard.actions';
 })
 export class WidgetComponent implements AfterViewInit {
   @Input({ required: true }) dashboardItem!: DashboardItem;
-  isRemovalMod$ = this.store.select(selectIsRemovalMod);
+  isRemovalState$ = this.dashboardStateService.isRemovalState$;
 
   @ViewChild('componentPlaceholder', { read: ViewContainerRef }) componentPlaceholder!: ViewContainerRef;
 
   constructor(
     private widgets: WidgetsService,
     private cd: ChangeDetectorRef,
-    private readonly store: Store,
+    private dashboardStateService: DashboardStateService,
+    private dashboardService: DashboardService,
   ) {}
 
   ngAfterViewInit(): void {
@@ -45,6 +45,6 @@ export class WidgetComponent implements AfterViewInit {
   }
 
   removeWidget(id: DashboardItem['id']) {
-    this.store.dispatch(DashboardActions.removeWidget({ id }));
+    this.dashboardService.removeWidget(id);
   }
 }
