@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { StorageService } from './storage/storage.service';
 import { DashboardItem } from '../models/dashboard.model';
 import { Widget } from '../models/widget.model';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class DashboardService {
     const dashboard = this._dashboard$.getValue();
 
     const newWidget: DashboardItem = {
-      id: Symbol('DashboardItemId'),
+      id: uuidv4(),
       cols: 2,
       rows: 1,
       y: 0,
@@ -32,7 +33,7 @@ export class DashboardService {
     this.setDashboard([...dashboard, newWidget]);
   }
 
-  removeWidget(id: symbol) {
+  removeWidget(id: DashboardItem['id']) {
     const dashboard = this._dashboard$.getValue();
     this.setDashboard(dashboard.filter((widget) => widget.id !== id));
   }
